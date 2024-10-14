@@ -1,18 +1,27 @@
 package com.pluralsight;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Info {
     private String date;
     private String time;
     private String description;
     private String vendor;
-    private float amount;
+    private double amount;
 
-    public Info(String date, String time, String description, String vendor, float amount) {
-        this.date = date;
-        this.time = time;
+    public Info(String description, String vendor, double amount) {
+        //Automatically set the date & time when transaction is created
+        this.date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
         this.description = description;
         this.vendor = vendor;
         this.amount = amount;
+    }
+
+    //Create method that formats the data in the csv file
+    public String toCSV() {
+        return date + "|" + time + "|" + description + "|" + vendor + "|" + amount;
     }
 
     public String getDate() {
@@ -23,20 +32,12 @@ public class Info {
         this.date = date;
     }
 
-    public float getAmount() {
-        return amount;
+    public String getTime() {
+        return time;
     }
 
-    public void setAmount(float amount) {
-        this.amount = amount;
-    }
-
-    public String getVendor() {
-        return vendor;
-    }
-
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getDescription() {
@@ -47,11 +48,21 @@ public class Info {
         this.description = description;
     }
 
-    public String getTime() {
-        return time;
+    public String getVendor() {
+        return vendor;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 }
+
+
