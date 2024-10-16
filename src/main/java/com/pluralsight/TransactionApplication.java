@@ -98,7 +98,7 @@ public class TransactionApplication {
             }
         }
         //Help from friend to loop back to view options instead of app exiting
-        System.out.println("Press Enter to go back");
+        System.out.println("\nPress Enter to go back");
         scanner.nextLine();
         Scanner ledgerScanner = new Scanner(System.in);
         displayLedger(ledgerScanner);
@@ -172,25 +172,29 @@ public class TransactionApplication {
             scanner.nextLine();
             if (reportsOption == 1) {
                 monthToDate();
-                break;
+                //break;
             } else if (reportsOption == 2) {
                 previousMonth();
-                break;
+                //break;
             } else if (reportsOption == 3) {
                 yearToDate();
-                break;
+                //break;
             } else if (reportsOption == 4) {
                 previousYear();
-                break;
+                //break;
             } else if (reportsOption == 5) {
                 searchVendor(scanner);
-                break;
+                //break;
             } else if (reportsOption == 0) {
                 displayLedger(scanner);
-                break;
+                //break;
             } else {
                 System.out.println("Please select a valid option: 1, 2, 3, 4, 5, 0");
             }
+            System.out.println("\nPress Enter to go back");
+            scanner.nextLine();
+            Scanner reportScanner = new Scanner(System.in);
+            reports(reportScanner);
         }
     }
 
