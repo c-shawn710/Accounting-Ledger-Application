@@ -19,7 +19,7 @@ public class TransactionApplication {
 
         while (true) {
             homeOption = scanner.nextLine();
-            if (homeOption.equalsIgnoreCase("D")) {
+            if (homeOption.equals("D")) {
                 addDeposit(scanner);
                 break;
 
@@ -126,7 +126,7 @@ public class TransactionApplication {
             while((input = bufReader.readLine()) != null) {
                 columns.add(input);
             }
-            System.out.println("Date|Time|Description|Vendor|Amount");
+            System.out.println("\nDate|Time|Description|Vendor|Amount");
             for (int i = 0; i < columns.size(); i++) {
                 columns.sort(Collections.reverseOrder());
                 System.out.println(columns.get(i));
@@ -146,7 +146,7 @@ public class TransactionApplication {
             String input;
             bufReader.readLine();
 
-            System.out.println("Date|Time|Description|Vendor|Amount\n");
+            System.out.println("\nDate|Time|Description|Vendor|Amount");
             while ((input = bufReader.readLine()) != null) {
                 String[] columns = input.split("\\|");
                 if (Double.parseDouble(columns[4]) > 0) {
@@ -171,7 +171,7 @@ public class TransactionApplication {
             String input;
             bufReader.readLine();
 
-            System.out.println("Date|Time|Description|Vendor|Amount\n");
+            System.out.println("\nDate|Time|Description|Vendor|Amount");
             while ((input = bufReader.readLine()) != null) {
                 String[] columns = input.split("\\|");
                 if (Double.parseDouble(columns[4]) < 0) {
@@ -189,7 +189,7 @@ public class TransactionApplication {
     }
 
     private static void reports(Scanner scanner) {
-        System.out.println("Welcome to the Reports screen!\nSelect which option you would like to view: \n1) Month To Date\n2) Previous Month\n3) Year To Date\n4) Previous Year\n5) Search by Vendor\n0) Back to Ledger screen");
+        System.out.println("\nWelcome to the Reports screen!\nSelect which option you would like to view: \n1) Month To Date\n2) Previous Month\n3) Year To Date\n4) Previous Year\n5) Search by Vendor\n0) Back to Ledger screen");
         int reportsOption;
 
         while (true) {
@@ -229,7 +229,7 @@ public class TransactionApplication {
             while ((input = bufReader.readLine()) != null) {
                 columns.add(input);
             }
-            System.out.println("Date|Time|Description|Vendor|Amount");
+            System.out.println("\nDate|Time|Description|Vendor|Amount");
             columns.sort(Collections.reverseOrder());
             for(int i = 0; i < columns.size(); i++) {
                 if (LocalDate.parse((columns.get(i).substring(0, 10))).getMonthValue() == currentDate.getMonthValue() && LocalDate.parse((columns.get(i).substring(0, 10))).getYear() == currentDate.getYear()) {
@@ -253,7 +253,7 @@ public class TransactionApplication {
             while ((input = bufReader.readLine()) != null) {
                 columns.add(input);
             }
-            System.out.println("Date|Time|Description|Vendor|Amount");
+            System.out.println("\nDate|Time|Description|Vendor|Amount");
             columns.sort(Collections.reverseOrder());
             for(int i = 0; i < columns.size(); i++) {
                 if (LocalDate.parse((columns.get(i).substring(0, 10))).getMonthValue() == currentDate.getMonthValue() -1 && LocalDate.parse((columns.get(i).substring(0, 10))).getYear() == currentDate.getYear()) {
@@ -277,7 +277,7 @@ public class TransactionApplication {
             while ((input = bufReader.readLine()) != null) {
                 columns.add(input);
             }
-            System.out.println("Date|Time|Description|Vendor|Amount");
+            System.out.println("\nDate|Time|Description|Vendor|Amount");
             columns.sort(Collections.reverseOrder());
             for(int i = 0; i < columns.size(); i++) {
                 if (LocalDate.parse((columns.get(i).substring(0, 10))).getYear() == currentDate.getYear()) {
@@ -300,7 +300,7 @@ public class TransactionApplication {
                 while ((input = bufReader.readLine()) != null) {
                     columns.add(input);
                 }
-                System.out.println("Date|Time|Description|Vendor|Amount");
+                System.out.println("\nDate|Time|Description|Vendor|Amount");
                 columns.sort(Collections.reverseOrder());
                 for (int i = 0; i < columns.size(); i++) {
                     if (LocalDate.parse((columns.get(i).substring(0, 10))).getYear() == currentDate.getYear() -1 ) {
