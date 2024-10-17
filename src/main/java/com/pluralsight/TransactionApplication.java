@@ -19,7 +19,7 @@ public class TransactionApplication {
 
         while (true) {
             homeOption = scanner.nextLine();
-            if (homeOption.equals("D")) {
+            if (homeOption.equalsIgnoreCase("D")) {
                 addDeposit(scanner);
                 break;
 
