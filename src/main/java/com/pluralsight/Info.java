@@ -1,6 +1,5 @@
 package com.pluralsight;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -24,13 +23,6 @@ public class Info {
     public String toCSV() {
         return date + "|" + time + "|" + description + "|" + vendor + "|" + amount;
     }
-
-   /* //Had to look this up
-    public boolean currentMonth() {
-        LocalDate transactionDate = LocalDate.parse(this.date);
-        LocalDate currentDate = LocalDate.now();
-        return transactionDate.getMonthValue() == currentDate.getMonthValue() && transactionDate.getYear() == currentDate.getYear();
-    }*/
 
     public String getDate() {
         return date;

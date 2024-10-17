@@ -1,9 +1,9 @@
 package com.pluralsight;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class TransactionApplication {
@@ -97,7 +97,7 @@ public class TransactionApplication {
                 System.out.println("Please select a valid option: D, P, R, H");
             }
         }
-        //Help from friend to loop back to view options instead of app exiting
+        //Received help to loop back to view options instead of exiting app
         System.out.println("\nPress Enter to go back");
         scanner.nextLine();
         Scanner ledgerScanner = new Scanner(System.in);
@@ -115,11 +115,24 @@ public class TransactionApplication {
             e.printStackTrace();
         }
     }
-
+    //Received help on displaying transactions in descending order
     public static void allEntries() {
         try {
-            String viewAll = Files.readString(Paths.get("transactions.csv"));
-            System.out.println(viewAll);
+            FileReader fileReader = new FileReader("transactions.csv");
+            BufferedReader bufReader = new BufferedReader(fileReader);
+            String input;
+            bufReader.readLine();
+            ArrayList<String> columns = new ArrayList<String>();
+            while((input = bufReader.readLine()) != null) {
+                columns.add(input);
+            }
+            System.out.println("Date|Time|Description|Vendor|Amount");
+            for (int i = 0; i < columns.size(); i++) {
+                columns.sort(Collections.reverseOrder());
+                System.out.println(columns.get(i));
+            }
+            fileReader.close();
+            bufReader.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -129,14 +142,20 @@ public class TransactionApplication {
         try {
             FileReader fileReader = new FileReader("transactions.csv");
             BufferedReader bufReader = new BufferedReader(fileReader);
+            ArrayList<String> arrayColumns = new ArrayList<String>();
             String input;
             bufReader.readLine();
 
+            System.out.println("Date|Time|Description|Vendor|Amount\n");
             while ((input = bufReader.readLine()) != null) {
                 String[] columns = input.split("\\|");
                 if (Double.parseDouble(columns[4]) > 0) {
-                    System.out.println(input);
+                    arrayColumns.add(input);
                 }
+            }
+            for (int i = 0; i < arrayColumns.size(); i++) {
+                arrayColumns.sort(Collections.reverseOrder());
+                System.out.println(arrayColumns.get(i));
             }
             fileReader.close();
             bufReader.close();
@@ -148,18 +167,24 @@ public class TransactionApplication {
         try {
             FileReader fileReader = new FileReader("transactions.csv");
             BufferedReader bufReader = new BufferedReader(fileReader);
+            ArrayList<String> arrayColumns = new ArrayList<String>();
             String input;
             bufReader.readLine();
 
+            System.out.println("Date|Time|Description|Vendor|Amount\n");
             while ((input = bufReader.readLine()) != null) {
                 String[] columns = input.split("\\|");
                 if (Double.parseDouble(columns[4]) < 0) {
-                    System.out.println(input);
+                    arrayColumns.add(input);
                 }
             }
+                for (int i = 0; i < arrayColumns.size(); i++) {
+                    arrayColumns.sort(Collections.reverseOrder());
+                    System.out.println(arrayColumns.get(i));
+                }
             fileReader.close();
             bufReader.close();
-        } catch (Exception e) {
+        }   catch (Exception e) {
         }
     }
 
@@ -172,22 +197,16 @@ public class TransactionApplication {
             scanner.nextLine();
             if (reportsOption == 1) {
                 monthToDate();
-                //break;
             } else if (reportsOption == 2) {
                 previousMonth();
-                //break;
             } else if (reportsOption == 3) {
                 yearToDate();
-                //break;
             } else if (reportsOption == 4) {
                 previousYear();
-                //break;
             } else if (reportsOption == 5) {
                 searchVendor(scanner);
-                //break;
             } else if (reportsOption == 0) {
                 displayLedger(scanner);
-                //break;
             } else {
                 System.out.println("Please select a valid option: 1, 2, 3, 4, 5, 0");
             }
@@ -195,6 +214,7 @@ public class TransactionApplication {
             scanner.nextLine();
             Scanner reportScanner = new Scanner(System.in);
             reports(reportScanner);
+            scanner.close();
         }
     }
 
@@ -204,15 +224,20 @@ public class TransactionApplication {
             BufferedReader bufReader = new BufferedReader(fileReader);
             String input;
             bufReader.readLine();
-            LocalDate inputDate;
             LocalDate currentDate = LocalDate.now();
+            ArrayList<String> columns = new ArrayList<String>();
             while ((input = bufReader.readLine()) != null) {
-                String[] columns = input.split("\\|");
-                inputDate = LocalDate.parse(columns[0]);
-                if (inputDate.getMonthValue() == currentDate.getMonthValue() && inputDate.getYear() == currentDate.getYear()) {
-                    System.out.println(input);
+                columns.add(input);
+            }
+            System.out.println("Date|Time|Description|Vendor|Amount");
+            columns.sort(Collections.reverseOrder());
+            for(int i = 0; i < columns.size(); i++) {
+                if (LocalDate.parse((columns.get(i).substring(0, 10))).getMonthValue() == currentDate.getMonthValue() && LocalDate.parse((columns.get(i).substring(0, 10))).getYear() == currentDate.getYear()) {
+                    System.out.println(columns.get(i));
                 }
             }
+            fileReader.close();
+            bufReader.close();
         } catch (Exception e) {
         }
     }
@@ -223,15 +248,20 @@ public class TransactionApplication {
             BufferedReader bufReader = new BufferedReader(fileReader);
             String input;
             bufReader.readLine();
-            LocalDate inputDate;
             LocalDate currentDate = LocalDate.now();
+            ArrayList<String> columns = new ArrayList<String>();
             while ((input = bufReader.readLine()) != null) {
-                String[] columns = input.split("\\|");
-                inputDate = LocalDate.parse(columns[0]);
-                if (inputDate.getMonthValue() == currentDate.getMonthValue() - 1 && inputDate.getYear() == currentDate.getYear()) {
-                    System.out.println(input);
+                columns.add(input);
+            }
+            System.out.println("Date|Time|Description|Vendor|Amount");
+            columns.sort(Collections.reverseOrder());
+            for(int i = 0; i < columns.size(); i++) {
+                if (LocalDate.parse((columns.get(i).substring(0, 10))).getMonthValue() == currentDate.getMonthValue() -1 && LocalDate.parse((columns.get(i).substring(0, 10))).getYear() == currentDate.getYear()) {
+                    System.out.println(columns.get(i));
                 }
             }
+            fileReader.close();
+            bufReader.close();
         } catch (Exception e) {
         }
     }
@@ -242,52 +272,69 @@ public class TransactionApplication {
             BufferedReader bufReader = new BufferedReader(fileReader);
             String input;
             bufReader.readLine();
-            LocalDate inputDate;
             LocalDate currentDate = LocalDate.now();
+            ArrayList<String> columns = new ArrayList<String>();
             while ((input = bufReader.readLine()) != null) {
-                String[] columns = input.split("\\|");
-                inputDate = LocalDate.parse(columns[0]);
-                if (inputDate.getYear() == currentDate.getYear()) {
-                    System.out.println(input);
+                columns.add(input);
+            }
+            System.out.println("Date|Time|Description|Vendor|Amount");
+            columns.sort(Collections.reverseOrder());
+            for(int i = 0; i < columns.size(); i++) {
+                if (LocalDate.parse((columns.get(i).substring(0, 10))).getYear() == currentDate.getYear()) {
+                    System.out.println(columns.get(i));
                 }
             }
-        } catch (Exception e) {
+            fileReader.close();
+            bufReader.close();
+            } catch (Exception e) {
+            }
         }
-    }
         private static void previousYear () {
             try {
                 FileReader fileReader = new FileReader("transactions.csv");
                 BufferedReader bufReader = new BufferedReader(fileReader);
                 String input;
                 bufReader.readLine();
-                LocalDate inputDate;
                 LocalDate currentDate = LocalDate.now();
+                ArrayList<String> columns = new ArrayList<String>();
                 while ((input = bufReader.readLine()) != null) {
-                    String[] columns = input.split("\\|");
-                    inputDate = LocalDate.parse(columns[0]);
-                    if (inputDate.getMonthValue() == currentDate.getMonthValue() && inputDate.getYear() == currentDate.getYear() - 1) {
-                        System.out.println(input);
+                    columns.add(input);
+                }
+                System.out.println("Date|Time|Description|Vendor|Amount");
+                columns.sort(Collections.reverseOrder());
+                for (int i = 0; i < columns.size(); i++) {
+                    if (LocalDate.parse((columns.get(i).substring(0, 10))).getYear() == currentDate.getYear() -1 ) {
+                        System.out.println(columns.get(i));
                     }
                 }
+                fileReader.close();
+                bufReader.close();
             } catch (Exception e) {
             }
         }
-
         private static void searchVendor (Scanner scanner) {
             try {
                 FileReader fileReader = new FileReader("transactions.csv");
                 BufferedReader bufReader = new BufferedReader(fileReader);
+                ArrayList<String> arrayColumns = new ArrayList<String>();
                 String input;
                 bufReader.readLine();
                 System.out.println("Enter Vendor name: ");
                 String inputVendor = scanner.nextLine();
+                System.out.println("Date|Time|Description|Vendor|Amount\n");
                 while ((input = bufReader.readLine()) != null) {
                     String[] columns = input.split("\\|");
                     String vendorName = columns[3];
                     if(vendorName.equalsIgnoreCase(inputVendor)) {
-                        System.out.println(input);
+                        arrayColumns.add(input);
                     }
                 }
+                for(int i = 0; i < arrayColumns.size(); i++){
+                    arrayColumns.sort(Collections.reverseOrder());
+                    System.out.println(arrayColumns.get(i));
+                }
+                fileReader.close();
+                bufReader.close();
             } catch (Exception e) {
             }
         }
