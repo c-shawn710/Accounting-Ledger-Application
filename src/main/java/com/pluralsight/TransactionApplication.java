@@ -48,7 +48,7 @@ public class TransactionApplication {
         String depositDescriptionInfo = scanner.nextLine();
         System.out.println("Vendor");
         String vendorDepositInfo = scanner.nextLine();
-        System.out.println("Amount: ");
+        System.out.print("Amount:\n$ ");
         double amountDeposit = scanner.nextDouble();
 
 
@@ -63,7 +63,7 @@ public class TransactionApplication {
         String paymentDescriptionInfo = scanner.nextLine();
         System.out.println("Vendor");
         String vendorPaymentInfo = scanner.nextLine();
-        System.out.println("Amount (Input negative): ");
+        System.out.print("Amount:(Input negative)\n$ ");
         double amountPayment = scanner.nextDouble();
 
         Info payment = new Info(paymentDescriptionInfo, vendorPaymentInfo, amountPayment);
@@ -94,7 +94,7 @@ public class TransactionApplication {
             } else if (ledgerOption.equalsIgnoreCase("H")) {
                 homePage(scanner);
             } else {
-                System.out.println("Please select a valid option: D, P, R, H");
+                System.out.println("Please select a valid option: A, D, P, R, H");
             }
         }
         //Received help to loop back to view options instead of exiting app
